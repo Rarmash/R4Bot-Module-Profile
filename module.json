@@ -1,0 +1,19 @@
+﻿{
+  "id": "profile",
+  "name": "Profile",
+  "version": "1.0.0",
+  "entrypoint": "cog",
+  "description": "User and bot profile card module for R4Bot.",
+  "author": "Rarmash",
+  "min_core_version": "2.0",
+  "required_settings": [
+    "accent_color",
+    "admin_id"
+  ],
+  "required_services": [
+    "config",
+    "firebase",
+    "module_state",
+    "profile_extensions"
+  ]
+}
