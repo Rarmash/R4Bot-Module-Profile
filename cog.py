@@ -148,6 +148,33 @@ class Profile(commands.Cog):
         embed.set_thumbnail(url=user.avatar)
         await ctx.respond(embed=embed, view=BotLink(self.application_id))
 
+    @commands.slash_command(description='Посмотреть карточку сервера')
+    @discord.guild_only()
+    async def server(self, ctx: discord.ApplicationContext):
+        server_data = self.get_server_data(ctx.guild.id)
+        if not server_data:
+            await ctx.respond(CONFIG_NOT_INITIALIZED_MESSAGE, ephemeral=True)
+            return
+
+        guild = ctx.guild
+        members = guild.members
+        bot_count = len([member for member in members if member.bot])
+
+        embed = discord.Embed(
+            title=f'Информация о сервере {guild}',
+            color=int(server_data.get('accent_color'), 16),
+        )
+        embed.set_thumbnail(url=guild.icon)
+        embed.add_field(name='Описание', value=guild.description or 'Отсутствует')
+        embed.add_field(name='Каналов', value=str(len(guild.channels)))
+        embed.add_field(name='Ролей', value=str(len(guild.roles)))
+        embed.add_field(name='Бустеров', value=str(len(guild.premium_subscribers)))
+        embed.add_field(name='Участников', value=str(guild.member_count - bot_count))
+        embed.add_field(name='Ботов', value=str(bot_count))
+        embed.add_field(name='Создан', value=f'<t:{self.get_timestamp(guild.created_at)}:f>')
+        embed.add_field(name='Владелец', value=f'<@{guild.owner.id}>')
+        await ctx.respond(embed=embed)
+
 
 
 def setup(bot):

@@ -4,6 +4,7 @@
 
 ## Что делает
 - добавляет `/profile`
+- добавляет `/server`
 - показывает карточку участника и карточку самого бота
 - автоматически скрывает игровые и статистические поля, если соответствующие модули не установлены или выключены
 - получает дополнительные игровые поля через profile extensions от других модулей
@@ -35,3 +36,4 @@ python manage_modules.py install github:Rarmash/R4Bot-Module-Profile@master --en
 ```powershell
 python -m pip install -r requirements.txt
 ```
+
