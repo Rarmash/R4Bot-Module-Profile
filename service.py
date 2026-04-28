@@ -1,4 +1,4 @@
-from core.sdk import collect_hook_results
+from r4bot_sdk import collect_hook_results
 
 
 PROFILE_FIELDS_HOOK = "profile.fields"

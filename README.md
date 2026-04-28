@@ -1,4 +1,4 @@
-﻿# R4Bot-Module-Profile
+# R4Bot-Module-Profile
 
 Внешний модуль профилей для [R4Bot](https://github.com/Rarmash/R4Bot).
 
