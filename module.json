@@ -13,7 +13,6 @@
   "required_services": [
     "config",
     "firebase",
-    "module_state",
-    "profile_extensions"
+    "module_state"
   ]
 }

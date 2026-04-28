@@ -6,6 +6,7 @@ from math import ceil
 
 import discord
 from discord.ext import commands
+from .service import ProfileService
 
 DATE_FORMAT = '%#d.%#m.%Y в %H:%M:%S'
 CONFIG_NOT_INITIALIZED_MESSAGE = (
@@ -35,6 +36,7 @@ class Profile(commands.Cog):
         self.application_id = self.services.config.application_id
         if not self.application_id:
             raise RuntimeError('APPLICATIONID is not configured for the bot core')
+        self.service = ProfileService(self)
 
     def get_server_data(self, guild_id: int):
         return self.services.config.get_servers_data().get(str(guild_id))
@@ -110,12 +112,7 @@ class Profile(commands.Cog):
                 if self.is_module_enabled('voice'):
                     embed.add_field(name='Голосовая активность', value=self.format_voice_duration(user_data.get('voice', 0)))
 
-                extra_fields = await self.services.profile_extensions.collect_fields(
-                    ctx=ctx,
-                    member=user,
-                    user_data=user_data,
-                    server_data=server_data,
-                )
+                extra_fields = await self.service.collect_extra_fields(ctx, user, user_data, server_data)
                 for field in extra_fields:
                     embed.add_field(
                         name=field['name'],
